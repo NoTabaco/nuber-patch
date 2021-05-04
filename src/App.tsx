@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useReactiveVar } from "@apollo/client";
+import { isLoggedInVar } from "./apollo";
 
 function App() {
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const onLogIn = () => {
+    isLoggedInVar(true);
+  };
+
+  const onLogOut = () => {
+    isLoggedInVar(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {isLoggedIn ? (
+        <>
+          <h3>Welcome</h3>
+          <button onClick={onLogOut}>Log Out</button>
+        </>
+      ) : (
+        <>
+          <h3>Please Log In</h3>
+          <button onClick={onLogIn}>Log In</button>
+        </>
+      )}
     </div>
   );
 }
