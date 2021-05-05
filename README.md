@@ -3,5 +3,5 @@
 - [x] New Apollo Client
 - [x] Client State (Authentication)
 - [x] Auth, Http, WS Link
-- [ ] Class -> Hooks
+- [x] Class -> Hooks
 - [ ] Apollo Codegen

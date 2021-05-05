@@ -1,12 +1,64 @@
-import { useReactiveVar } from "@apollo/client";
+import {
+  gql,
+  useLazyQuery,
+  useMutation,
+  useQuery,
+  useReactiveVar,
+} from "@apollo/client";
 import { isLoggedInVar } from "./apollo";
 
+const FACEBOOK_CONNECT = gql`
+  mutation facebookConnect(
+    $firstName: String!
+    $lastName: String!
+    $email: String
+    $fbId: String!
+  ) {
+    FacebookConnect(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      fbId: $fbId
+    ) {
+      ok
+      error
+      token
+    }
+  }
+`;
+
+const GET_NEARBY_DRIVERS = gql`
+  query getDrivers {
+    GetNearbyDrivers {
+      ok
+      error
+      drivers {
+        id
+        lastLat
+        lastLng
+      }
+    }
+  }
+`;
+
 function App() {
+  const onCompleted = (data: any) => console.log(data);
+  /* const { data: queryData, error, loading, called, client } = useQuery
+  (GET_NEARBY_DRIVERS);
+    const [triggerQuery, { loading, error, data, called, client }] = useLazyQuery
+  (GET_NEARBY_DRIVERS); */
+  const [mutationFn, { loading, error, data, called, client }] = useMutation(
+    FACEBOOK_CONNECT,
+    {
+      variables: { firstName: "", lastName: "", email: "", fbId: "" },
+      onCompleted,
+    }
+  );
+
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const onLogIn = () => {
     isLoggedInVar(true);
   };
-
   const onLogOut = () => {
     isLoggedInVar(false);
   };
