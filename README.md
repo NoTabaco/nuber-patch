@@ -4,4 +4,4 @@
 - [x] Client State (Authentication)
 - [x] Auth, Http, WS Link
 - [x] Class -> Hooks
-- [ ] Apollo Codegen
+- [x] Apollo Codegen

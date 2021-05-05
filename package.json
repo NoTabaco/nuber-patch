@@ -9,9 +9,8 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
+    "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.0",
-    "apollo": "^2.33.0",
     "graphql": "^15.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -24,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "codegen": "apollo client:codegen ./src/__generated-types__.ts --target=typescript --outputFlat"
   },
   "eslintConfig": {
     "extends": [
@@ -43,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "apollo": "^2.33.0"
   }
 }

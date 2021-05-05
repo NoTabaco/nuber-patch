@@ -1,11 +1,17 @@
 import {
   gql,
+  MutationUpdaterFn,
   useLazyQuery,
   useMutation,
   useQuery,
   useReactiveVar,
 } from "@apollo/client";
 import { isLoggedInVar } from "./apollo";
+import {
+  facebookConnect,
+  facebookConnectVariables,
+  getDrivers,
+} from "./__generated-types__";
 
 const FACEBOOK_CONNECT = gql`
   mutation facebookConnect(
@@ -42,12 +48,21 @@ const GET_NEARBY_DRIVERS = gql`
 `;
 
 function App() {
-  const onCompleted = (data: any) => console.log(data);
-  /* const { data: queryData, error, loading, called, client } = useQuery
-  (GET_NEARBY_DRIVERS);
-    const [triggerQuery, { loading, error, data, called, client }] = useLazyQuery
+  const onCompleted = (data: facebookConnect) => {
+    if (data.FacebookConnect.ok) {
+    }
+  };
+  const update: MutationUpdaterFn<facebookConnect> = (cache, data) => {};
+  const {
+    data: queryData,
+    error,
+    loading,
+    called,
+    client,
+  } = useQuery<getDrivers>(GET_NEARBY_DRIVERS);
+  /* const [triggerQuery, { loading, error, data, called, client }] = useLazyQuery
   (GET_NEARBY_DRIVERS); */
-  const [mutationFn, { loading, error, data, called, client }] = useMutation(
+  const [mutationFn] = useMutation<facebookConnect, facebookConnectVariables>(
     FACEBOOK_CONNECT,
     {
       variables: { firstName: "", lastName: "", email: "", fbId: "" },
